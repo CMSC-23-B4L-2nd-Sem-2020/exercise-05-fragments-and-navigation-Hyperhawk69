@@ -13,7 +13,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,34 +29,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var nicknameButton: Button //changes the name when pressed
     private lateinit var retryButton: Button //resets the game board and number of clicks
 
-    private lateinit var boxesView: Array<TextView> //array of each TextView box
+    private var boxesView = arrayOf<TextView>() //array of each TextView box
 
-    private var boxesId = arrayOf( //creates array of each box's R.id
-        R.id.box_0,
-        R.id.box_1,
-        R.id.box_2,
-        R.id.box_3,
-        R.id.box_4,
-        R.id.box_5,
-        R.id.box_6,
-        R.id.box_7,
-        R.id.box_8,
-        R.id.box_9,
-        R.id.box_10,
-        R.id.box_11,
-        R.id.box_12,
-        R.id.box_13,
-        R.id.box_14,
-        R.id.box_15,
-        R.id.box_16,
-        R.id.box_17,
-        R.id.box_18,
-        R.id.box_19,
-        R.id.box_20,
-        R.id.box_21,
-        R.id.box_22,
-        R.id.box_23,
-        R.id.box_24)
 
     override fun onCreate(savedInstanceState: Bundle?) { //creates the app, initializes the game board and listeners
         super.onCreate(savedInstanceState)
@@ -76,36 +49,6 @@ class MainActivity : AppCompatActivity() {
         setListeners()
 
         mViewCount = findViewById(R.id.show_count)
-
-        createBoxesView()
-    }
-
-    private fun createBoxesView(){ //creates the array containing each TextView box
-        boxesView = arrayOf(box_0,
-            box_1,
-            box_2,
-            box_3,
-            box_4,
-            box_5,
-            box_6,
-            box_7,
-            box_8,
-            box_9,
-            box_10,
-            box_11,
-            box_12,
-            box_13,
-            box_14,
-            box_15,
-            box_16,
-            box_17,
-            box_18,
-            box_19,
-            box_20,
-            box_21,
-            box_22,
-            box_23,
-            box_24)
     }
 
     fun saveNewNickname(view: View) { //when done button is clicked, saves the entered nickname and sets new visibilities
@@ -151,18 +94,26 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun getResource(i: Int): Int{ //accesses each box's id dynamically and returns its id
+        val boxID = "box_$i"
+
+        return resources.getIdentifier(boxID, "id", packageName)
+    }
+
     private fun setListeners() { //sets listeners for each box
         val clickableViews: MutableList<View> =
             mutableListOf(
 
             )
 
-        for (i in 0..24){
-            clickableViews.add(findViewById<View>(boxesId[i]))
+        for (i in 0..24){ //adds each box to clickableViews and boxesView
+            val resID = getResource(i)
+            clickableViews.add(findViewById<View>(resID))
+            boxesView += findViewById<TextView>(resID)
         }
 
         for (item in clickableViews) { //when clicked, changes colors of it and its adjacent boxes
-            item.setOnClickListener { makeColored(it) }
+            item.setOnClickListener { switchLights(it) }
         }
     }
 
@@ -220,10 +171,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun makeColored(view: View) { //if a box is clicked, checks its index and triggers the previous functions
+    private fun switchLights(view: View) { //if a box is clicked, checks its index and triggers the previous functions
         for (i in 0..4) {
             for (j in 0..4) {
-                if(view.id==boxesId[convertGameBoardtoBoxes(i,j)]){
+                val x = convertGameBoardtoBoxes(i,j)
+                val resID = getResource(x)
+                if(view.id==resID){
                     toggleLights(i,j)
                     countUp()
                     checkWin()
