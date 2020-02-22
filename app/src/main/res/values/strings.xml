@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Exercise3</string>
+    <string name="name">Ryan Cabuslay</string>
+    <string name="yellow_star">Yellow Star</string>
+    <string name="bio">Hi, my name is Aleks.
+    \n\nI love fish.
+    \n\nThe kind that is alive and swims around in an aquarium or river, or a lake, and definitely the ocean.
+    \nFun fact is that I have several aquariums and also a river.
+    \n\nI like eating fish, too. Raw fish. Grilled fish. Smoked fish. Poached fish - not so much.
+    \nAnd sometimes I even go fishing.
+    \nAnd even less sometimes, I actually catch something.
+    \n\nOnce, when I was camping in Canada, and very hungry, I even caught a large salmon with my hands.
+    \n\nI\'ll be happy to teach you how to make your own aquarium.
+    \nYou should ask someone else about fishing, though.\n\n</string>
+    <string name="nickname">Name</string>
+    <string name="accept_nickname">Done</string>
+    <string name="nickname_text">TextView</string>
+    <string name="button_retry">RETRY</string>
+    <string name="count_initial">0</string>
+    <string name="win_message">You Win!</string>
+</resources>
