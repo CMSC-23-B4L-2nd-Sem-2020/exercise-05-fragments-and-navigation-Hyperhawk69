@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Exercise3</string>
+    <string name="app_name">Exercise5</string>
     <string name="name">Ryan Cabuslay</string>
     <string name="yellow_star">Yellow Star</string>
     <string name="bio">Hi, my name is Aleks.
@@ -18,4 +18,7 @@
     <string name="button_retry">RETRY</string>
     <string name="count_initial">0</string>
     <string name="win_message">You Win!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
