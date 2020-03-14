@@ -22,15 +22,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.example.exercise3.databinding.FragmentGameWonBinding
 
 
 class GameWonFragment : Fragment() {
+    private val myName: MyName = MyName()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val binding: FragmentGameWonBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_game_won, container, false)
+
+        binding.myName = myName
+
+        binding.apply {
+            myName?.score = GameFragment.finalCount.toString()
+        }
+
+        binding.playAgain.setOnClickListener{view : View ->
+            GameFragment.finalCount = 0
+            view.findNavController().navigate(R.id.action_gameWonFragment_to_titleFragment)
+        }
+
         return binding.root
     }
 }

@@ -11,6 +11,9 @@ import androidx.navigation.findNavController
 
 
 class GameFragment : Fragment() {
+    companion object{
+        var finalCount:Int = 0
+    }
     private var mCount:Int = 0 //stores number of clicks
 
     private lateinit var mViewCount: TextView //shows number of clicks
@@ -85,18 +88,20 @@ class GameFragment : Fragment() {
         }
 
         view!!.findViewById<TextView>(R.id.retry_button).setOnClickListener {
-            retry(it)
+            retry()
         }
     }
 
     private fun countUp() { //appends to the click counter and shows it
         mCount++
         mViewCount.text=mCount.toString()
+        finalCount++
     }
 
     private fun countReset() { //resets the click counter to 0 and shows it
         mCount=0
         mViewCount.text=mCount.toString()
+        finalCount=0
     }
 
     private fun convertGameBoardtoBoxes(i: Int,j: Int): Int{ //converts i and j from the loop to a box's id
@@ -139,6 +144,7 @@ class GameFragment : Fragment() {
 
         if(win){
             view!!.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment)
+            mCount=0
         }
     }
 
@@ -160,7 +166,7 @@ class GameFragment : Fragment() {
         }
     }
 
-    fun retry(view: View){ //sets all game board values to true, sets all colors back to yellow, and resets click counter
+    private fun retry(){ //sets all game board values to true, sets all colors back to yellow, and resets click counter
         for (i in 0..4) {
             for (j in 0..4) {
                 gameBoard[i][j]=true
