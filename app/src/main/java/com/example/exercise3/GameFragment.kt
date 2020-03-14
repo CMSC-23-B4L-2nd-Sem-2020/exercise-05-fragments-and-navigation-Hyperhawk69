@@ -1,22 +1,14 @@
-//Cabuslay, Ryan Vincent L.
-//2018-12076
-//02-26-2020
-
 package com.example.exercise3
 
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.view.inputmethod.InputMethodManager
+import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
-import 	androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.Fragment
 
-class MainActivity : AppCompatActivity() {
-
+class GameFragment : Fragment() {
     private var mCount:Int = 0 //stores number of clicks
 
     private lateinit var mViewCount: TextView //shows number of clicks
@@ -25,53 +17,23 @@ class MainActivity : AppCompatActivity() {
 
     private var index = arrayOf<Array<Int>>() //5x5 int array of the positions of each box's id number
 
-    private lateinit var nicknameEditText: EditText //displays initial nickname
-    private lateinit var nicknameTextView: TextView //displays the new nickname entered
-    private lateinit var nicknameButton: Button //changes the name when pressed
     private lateinit var retryButton: Button //resets the game board and number of clicks
 
     private var boxesView = arrayOf<TextView>() //array of each TextView box
 
-
-    override fun onCreate(savedInstanceState: Bundle?) { //creates the app, initializes the game board and listeners
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        nicknameEditText = findViewById<EditText>(R.id.nickname)
-        nicknameTextView = findViewById(R.id.nickname_text)
-        nicknameButton = findViewById(R.id.accept_nickname)
-        retryButton = findViewById(R.id.retry_button)
-
-        findViewById<TextView>(R.id.nickname_text).setOnClickListener {
-            updateNickname(it)
-        }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view: View = inflater.inflate(R.layout.fragment_game, container, false)
 
         initGameBoard()
         setListeners()
 
-        mViewCount = findViewById(R.id.show_count)
-    }
+        mViewCount = getView()!!.findViewById(R.id.show_count)
 
-    fun saveNewNickname(view: View) { //when done button is clicked, saves the entered nickname and sets new visibilities
-        nicknameTextView.text = nicknameEditText.text
-        nicknameTextView.visibility = View.VISIBLE
-
-        nicknameEditText.visibility = View.GONE
-        nicknameButton.visibility = View.GONE
-
-        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
-    fun updateNickname(view: View) { //when nicknameTextView is clicked, allows user to type new nickname
-        nicknameTextView.visibility = View.GONE
-
-        nicknameEditText.visibility = View.VISIBLE
-        nicknameButton.visibility = View.VISIBLE
-
-        nicknameEditText.requestFocus()
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(nicknameEditText, 0)
+        return view
     }
 
     private fun initGameBoard(){ //creates 5x5 game board initialized to true and 5x5 index array of each box's id number
@@ -98,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     private fun getResource(i: Int): Int{ //accesses each box's id dynamically and returns its id
         val boxID = "box_$i"
 
-        return resources.getIdentifier(boxID, "id", packageName)
+        return view!!.resources.getIdentifier(boxID, "id", activity!!.baseContext.packageName)
     }
 
     private fun setListeners() { //sets listeners for each box
@@ -109,8 +71,8 @@ class MainActivity : AppCompatActivity() {
 
         for (i in 0..24){ //adds each box to clickableViews and boxesView
             val resID = getResource(i)
-            clickableViews.add(findViewById<View>(resID))
-            boxesView += findViewById<TextView>(resID)
+            clickableViews.add(view!!.findViewById<View>(resID))
+            boxesView += view!!.findViewById<TextView>(resID)
         }
 
         for (item in clickableViews) { //when clicked, changes colors of it and its adjacent boxes
@@ -167,8 +129,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if(win==true){
-            val toast: Toast = Toast.makeText(this,R.string.win_message, Toast.LENGTH_SHORT)
-            toast.show()
+
         }
     }
 
