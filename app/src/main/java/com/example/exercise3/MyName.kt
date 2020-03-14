@@ -1,0 +1,3 @@
+package com.example.exercise3
+
+data class MyName(var nickname: String = "")
