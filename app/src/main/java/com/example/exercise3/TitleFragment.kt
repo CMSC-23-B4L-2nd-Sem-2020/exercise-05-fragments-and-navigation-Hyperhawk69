@@ -9,9 +9,7 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.example.exercise3.databinding.FragmentTitleBinding
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class TitleFragment : Fragment() {
 
     override fun onCreateView(
