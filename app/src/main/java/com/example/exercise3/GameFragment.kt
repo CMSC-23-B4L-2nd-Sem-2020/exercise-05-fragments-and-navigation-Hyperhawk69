@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+
 
 class GameFragment : Fragment() {
     private var mCount:Int = 0 //stores number of clicks
@@ -26,14 +28,17 @@ class GameFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_game, container, false)
+        return inflater.inflate(R.layout.fragment_game, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        mViewCount = getView()!!.findViewById(R.id.show_count)
+        retryButton = getView()!!.findViewById(R.id.retry_button)
 
         initGameBoard()
         setListeners()
-
-        mViewCount = getView()!!.findViewById(R.id.show_count)
-
-        return view
     }
 
     private fun initGameBoard(){ //creates 5x5 game board initialized to true and 5x5 index array of each box's id number
@@ -77,6 +82,10 @@ class GameFragment : Fragment() {
 
         for (item in clickableViews) { //when clicked, changes colors of it and its adjacent boxes
             item.setOnClickListener { switchLights(it) }
+        }
+
+        view!!.findViewById<TextView>(R.id.retry_button).setOnClickListener {
+            retry(it)
         }
     }
 
@@ -128,8 +137,8 @@ class GameFragment : Fragment() {
             }
         }
 
-        if(win==true){
-
+        if(win){
+            view!!.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment)
         }
     }
 
