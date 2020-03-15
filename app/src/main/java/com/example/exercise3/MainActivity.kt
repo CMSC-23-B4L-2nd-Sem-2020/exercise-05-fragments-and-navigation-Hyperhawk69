@@ -14,13 +14,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         @Suppress("UNUSED_VARIABLE")
-        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main) //binds elements from Activity Main
 
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        GameFragment.finalCount = 0
+        GameFragment.finalCount = 0 //if back button is pressed, reset finalCount
     }
 
 }

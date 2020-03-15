@@ -1,18 +1,6 @@
-/*
- * Copyright 2018, The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+//Cabuslay, Ryan Vincent L.
+//2018-12076
+//03-19-2020
 
 package com.example.exercise3
 
@@ -35,13 +23,13 @@ class GameWonFragment : Fragment() {
         val binding: FragmentGameWonBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_game_won, container, false)
 
-        binding.myName = myName
+        binding.myName = myName //binds myName data class
 
         binding.apply {
-            myName?.score = GameFragment.finalCount.toString()
+            myName?.score = GameFragment.finalCount.toString() //displays the number of clicks when game was completed
         }
 
-        binding.playAgain.setOnClickListener{view : View ->
+        binding.playAgain.setOnClickListener{view : View -> //if Play Again button is pressed, navigates to start screen
             GameFragment.finalCount = 0
             view.findNavController().navigate(R.id.action_gameWonFragment_to_titleFragment)
         }

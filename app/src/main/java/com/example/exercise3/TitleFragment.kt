@@ -1,3 +1,7 @@
+//Cabuslay, Ryan Vincent L.
+//2018-12076
+//03-19-2020
+
 package com.example.exercise3
 
 import android.content.Context
@@ -14,7 +18,7 @@ import com.example.exercise3.databinding.FragmentTitleBinding
 
 class TitleFragment : Fragment() {
 
-    private val myName: MyName = MyName()
+    private val myName: MyName = MyName() //data class containing name and score
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -22,9 +26,9 @@ class TitleFragment : Fragment() {
         val binding: FragmentTitleBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_title, container, false)
 
-        binding.myName = myName
+        binding.myName = myName //binds myName data class
 
-        binding.acceptNickname.setOnClickListener {
+        binding.acceptNickname.setOnClickListener {//accepts user input of the name and displays it
             binding.apply {
                 myName?.nickname = nickname.text.toString()
                 invalidateAll()
@@ -36,7 +40,7 @@ class TitleFragment : Fragment() {
             imm.hideSoftInputFromWindow(view!!.windowToken, 0)
         }
 
-        binding.playButton.setOnClickListener { view : View ->
+        binding.playButton.setOnClickListener { view : View -> //if Play Button is clicked, navigate to Game Fragment
             view.findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
         }
 

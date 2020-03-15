@@ -1,3 +1,7 @@
+//Cabuslay, Ryan Vincent L.
+//2018-12076
+//03-19-2020
+
 package com.example.exercise3
 
 import android.os.Bundle
@@ -12,7 +16,7 @@ import androidx.navigation.findNavController
 
 class GameFragment : Fragment() {
     companion object{
-        var finalCount:Int = 0
+        var finalCount:Int = 0 //holds the number of clicks when a game is completed
     }
     private var mCount:Int = 0 //stores number of clicks
 
@@ -143,7 +147,7 @@ class GameFragment : Fragment() {
         }
 
         if(win){
-            view!!.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment)
+            view!!.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment) //if game is completed, navigate to Game Won Fragment
             mCount=0
         }
     }
